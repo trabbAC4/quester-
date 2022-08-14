@@ -10,12 +10,11 @@ priority = ['low', 'med', 'high']
 tracker = {} 
 x = ""
 y = ""
-exp = 0
-exp_points = 0 
-curr_level = 0  
-prev_level = 0
+curr_level = 0 
+to_new_level = 50
 bool = True
 bool_two = True
+exp_points = 0
 
 
 def main():
@@ -28,6 +27,7 @@ def start_message():
 
 def startup(tracker, bool):
     while bool == True:
+        print("Enter your tasks below: ")
         x = input()
         print("Enter priority")
         y = input()
@@ -53,34 +53,52 @@ def simulate_tasks(tasks):
             tracker[key] = 30
         elif val == "high":
             tracker[key] = 50
+    task_status(tasks, True)
+
+
             
 def task_status(tasks, bool):
+    prev_level = 0
     while bool == True:
         for key, val in tasks.items():
-            print("Did you complete this task?," + key)
+            print("Did you complete this task? (y/n), " + key)
             a = input()
             if a == 'y':
-                exp = tasks[key]
-                prev_level = curr_level
-                #curr_level = update_level(prev_level, exp, exp_points)
+                exp = val
+                curr_level = update_level(prev_level, exp, exp_points)
                 print("Current level", curr_level)
-
-            del tracker[key]
-        else:
-            print("Finish your task")
-        if len(tracker) == 0:
-            print("You're all done with your tasks! Add more? (y/n)")
-            b = input()
-            if b == "y":
-                new_dict = {}
-                bool = True
-                startup(new_dict, bool)
-                
-                #Call task function again
+                del tasks[key]
             else:
-                print("Thank you for your support! Till we meet again")
+                print("Finish your task")
+            if len(tracker) == 0:
+                print("You're all done with your tasks! Add more? (y/n)")
+                b = input()
+                if b == "y":
+                    new_dict = {}
+                    bool = True
+                    startup(new_dict, bool)
+                    #Call task function again
+                else:
+                    print("Thank you for your support! Till we meet again")
 
-     
+def update_level(prev_level, exp, exp_points):
+    if exp == 50:
+        print("Level up!")
+        exp_points += 50
+        prev_level +=1 
+    else:
+        to_new_level = 50
+        exp_left = to_new_level - exp
+        print("You are ", exp_left, " exp from leveling up")
+
+    return prev_level
+
+
+
+
+
+
+
             
 
 
