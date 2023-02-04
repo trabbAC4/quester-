@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Table from './table';
 import Task from './Task';
+import LevelDisplay from './leveldisplay';
 
 function TaskList() {
     const [tasks, setTask] = useState([]);
@@ -40,6 +41,8 @@ function TaskList() {
     setTask(updatedTasks);
     };
 
+
+
 return (
     <>
         <h1> Enter your tasks, young padawan </h1>
@@ -50,6 +53,10 @@ return (
             removeTask = {removeTask} 
             updateTask = {updateTask} 
         />
+        <LevelDisplay 
+            curr_level = {updateTask}
+        />
+
     </> 
 );
 }
