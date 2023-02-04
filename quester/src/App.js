@@ -1,7 +1,4 @@
-import Table from './components/table';
-import {useState} from 'react';
-
-import LevelDisplay from './components/leveldisplay'
+import React from 'react';
 import TaskList from './components/TaskList'
 import './App.css';
 
@@ -28,9 +25,7 @@ export default function App() {
       </header>
 
 
-      <Table />
-      <TaskList />
-      <LevelDisplay />
+      <TaskList /> 
 
     </div>
   );

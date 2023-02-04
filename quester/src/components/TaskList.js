@@ -1,26 +1,56 @@
-import React, {useState} from 'react'
-import Table from './table'
+import React, {useState} from 'react';
+import Table from './table';
+import Task from './Task';
 
 function TaskList() {
-    const [tasks, setTask] = useState([])
+    const [tasks, setTask] = useState([]);
     
     const addTask = task => {
         if(!task.text || /^\s*$/.test(task.text)) {
-            return 
+            return;
         }
-        const newTask = [task, ...tasks] 
+        const newTask = [task, ...tasks];
 
-        setTask(newTask) 
+        setTask(newTask);
         console.log(...tasks);
 
-    }
+    };
+
+    const updateTask = (TaskId, newVal) => {
+        if (!newVal.text || /^|s*$/.test(newVal.text)) {
+            return; 
+        }
+
+    setTask(prev => prev.map(item => (item.id === TaskId ? newVal: item)))
+    };
+
+    const removeTask = id => {
+        const removedArr = [...tasks].filter(task => task.id !== id);
+
+        setTask(removedArr)
+    };
+
+    const completeTask = id => {
+        let updatedTasks = tasks.map(task => {
+            if (task.id === id){
+                task.isComplete = !task.isComplete;
+            }
+            return task;
+        });
+    setTask(updatedTasks);
+    };
 
 return (
-    <div>
+    <>
         <h1> Enter your tasks, young padawan </h1>
         <Table onSubmit= {addTask} />
-
-    </div>
+        <Task 
+            tasks= {tasks} 
+            completeTask = {completeTask } 
+            removeTask = {removeTask} 
+            updateTask = {updateTask} 
+        />
+    </> 
 );
 }
 export default TaskList; 
