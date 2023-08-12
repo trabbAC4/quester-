@@ -16,7 +16,7 @@ function TaskList() {
         console.log(...tasks);
 
     };
-
+    
     const updateTask = (TaskId, newVal) => {
         if (!newVal.text || /^|s*$/.test(newVal.text)) {
             return; 

@@ -28,7 +28,7 @@ const Task = ({tasks, completeTask, removeTask, updateTask}) => {
         </div> 
         <div className = "icons"> 
             <RiCloseCircleLine 
-                onclick={() => removeTask(task.id)} 
+                onClick={() => removeTask(task.id)} 
                 className = 'delete-icon'
             /> 
             <TiEdit

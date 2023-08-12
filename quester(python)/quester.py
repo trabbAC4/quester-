@@ -10,7 +10,8 @@ priority = ['low', 'med', 'high']
 tracker = {} 
 x = ""
 y = ""
-curr_level = 0 
+prev_level = 0
+curr_level = None 
 to_new_level = 50
 bool = True
 bool_two = True
@@ -58,18 +59,17 @@ def simulate_tasks(tasks):
 
             
 def task_status(tasks, bool):
-    prev_level = 0
     while bool == True:
-        for key, val in tasks.items():
+        for key, val in list(tasks.items()):
             print("Did you complete this task? (y/n), " + key)
             a = input()
             if a == 'y':
-                exp = val
+                exp = val #Exp should not be priority 
                 curr_level = update_level(prev_level, exp, exp_points)
                 print("Current level", curr_level)
                 del tasks[key]
             else:
-                print("Finish your task")
+                continue
             if len(tracker) == 0:
                 print("You're all done with your tasks! Add more? (y/n)")
                 b = input()
@@ -79,6 +79,7 @@ def task_status(tasks, bool):
                     startup(new_dict, bool)
                     #Call task function again
                 else:
+                    bool = False
                     print("Thank you for your support! Till we meet again")
 
 def update_level(prev_level, exp, exp_points):
@@ -88,9 +89,10 @@ def update_level(prev_level, exp, exp_points):
         prev_level +=1 
     else:
         to_new_level = 50
-        exp_left = to_new_level - exp
+        exp_left = int(to_new_level) - exp
         print("You are ", exp_left, " exp from leveling up")
 
+    print(prev_level)
     return prev_level
 
 
